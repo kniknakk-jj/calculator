@@ -51,11 +51,11 @@ body {
 }
 
 .btn:hover {
-  background: #555;
+  background: purple;
 }
 
 .operator {
-  background: #ff9500;
+  background: lightblue;
 }
 
 .operator:hover {
