@@ -74,6 +74,8 @@ function calculate() {
     } else if (value.includes("*")) {
         const [a, b] = value.split("*").map(Number);
         return multiply(a, b);
+    } else if (value.includes("/" && "0")) {
+        return "Nuh uh uh no 0"
     } else if (value.includes("/")) {
         const [a, b] = value.split("/").map(Number);
         return divide(a, b);
