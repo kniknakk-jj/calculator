@@ -73,7 +73,7 @@ function calculate() {
         return subtract(a, b);
     } else if (value.includes("*")) {
         const [a, b] = value.split("*").map(Number);
-        return miltiply(a, b);
+        return multiply(a, b);
     } else if (value.includes("/")) {
         const [a, b] = value.split("/").map(Number);
         return divide(a, b);
