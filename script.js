@@ -27,13 +27,22 @@ function appendDecimal() {
     display.value += op;
   }
 
-function keyPress(event) {
+  function keyPress(event) {
     const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape', 'C', 'c'];
     
     if (event.key === "Escape" || event.key === "C" || event.key === "c") {
         return clearDisplay();
-    } else if (allowedKeys.includes(event.key)) {
-        appendToDisplay(event.key);
+    }
+
+    if (!allowedKeys.includes(event.key) && event.key !== 'Enter' && event.key !== 'Backspace') {
+        event.preventDefault();
+        return;
+    }
+
+    if (event.key === '.') {
+        appendDecimal();
+    } else if (['+','-','*','/'].includes(event.key)) {
+        appendOperator(event.key);
     } else if (event.key === 'Enter') {
         try {
             display.value = calculate(display.value);
@@ -42,6 +51,8 @@ function keyPress(event) {
         }
     } else if (event.key === 'Backspace') {
         display.value = display.value.slice(0, -1);
+    } else {
+        appendToDisplay(event.key);
     }
 
     event.preventDefault();
@@ -52,8 +63,23 @@ function clearDisplay() {
 }
 
 function calculate() {
-    display.value
-}
+    const value = display.value;
+
+    if (value.includes("+")) {
+        const [a, b] = value.split("+").map(Number);
+        return add(a, b);
+    } else if (value.includes("-")) {
+        const [a, b] = value.split("-").map(Number);
+        return subtract(a, b);
+    } else if (value.includes("*")) {
+        const [a, b] = value.split("*").map(Number);
+        return miltiply(a, b);
+    } else if (value.includes("/")) {
+        const [a, b] = value.split("/").map(Number);
+        return divide(a, b);
+    }
+    return "Unsupported operation";
+};
 
 const add = function(a, b) {
 	return (a + b)
@@ -64,7 +90,11 @@ const subtract = function(a, b) {
 };
 
 const multiply = function(a, b) {
-    return ( a - b)
+    return ( a * b)
+};
+
+const divide = function(a, b) {
+    return ( a / b)
 };
 
 document.addEventListener('keydown', keyPress);
