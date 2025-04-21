@@ -1,8 +1,17 @@
 const display = document.getElementById('display')
+const equalsButton = document.getElementById('equals');
 
 let firstOperand = null;
 let operator = null;
 let operatorJustPressed = false;
+
+equalsButton.addEventListener('click', function() {
+    try {
+        display.value = calculate();  // Calculate the result
+    } catch {
+        display.value = "Error";  // Handle any errors
+    }
+});
 
 function appendToDisplay(input) {
     if (operatorJustPressed) {
