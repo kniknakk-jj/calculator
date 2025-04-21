@@ -10,6 +10,8 @@ function appendToDisplay(input) {
         operatorJustPressed = false;
     }
     display.value += input;
+
+    display.scrollLeft = display.scrollWidth;
 }
 
 function appendDecimal() {
@@ -75,20 +77,20 @@ function clearDisplay() {
 }
 
 function calculate() {
-    let a = firstOperand
-    let b = display.value
+    let a = firstOperand;
+    let b = display.value;
 
     if (operator === "+") {
-        return add(a, b);
+        return Math.round(add(a, b) * 100) / 100;
     } else if (operator === "-") {
-        return subtract(a, b);
+        return Math.round(subtract(a, b) * 100) / 100;
     } else if (operator === "*") {
-        return multiply(a, b);
+        return Math.round(multiply(a, b) * 100) / 100;
     } else if (operator === "/") {
         if (b === 0) {
             return "Nuh uh uh no 0";
         }
-        return divide(a, b);
+        return Math.round(divide(a, b) * 100) / 100;
     }
 
     return "Unsupported operation";

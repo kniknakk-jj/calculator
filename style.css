@@ -26,17 +26,20 @@ body {
 }
 
 .display {
-    width: 100%;
-    height: 60px;
-    font-size: 2rem;
-    text-align: right;
-    padding: 0 20px;
-    background: #000;
-    color: #0f0;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-  }
+  width: 100%;
+  height: 60px;
+  font-size: 2rem;
+  text-align: right;
+  padding: 0 20px;
+  background: #000;
+  color: #0f0;
+  border: none;
+  outline: none;
+  box-sizing: border-box;
+  overflow-x: auto;
+  white-space: nowrap;
+  display: inline-block;
+}
 
 .buttons {
   display: flex;
