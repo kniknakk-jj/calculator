@@ -1,7 +1,12 @@
 const display = document.getElementById('display')
+let operatorJustPressed = false;
 
 function appendToDisplay(input) {
-    display.value += input
+    if (operatorJustPressed) {
+        display.value = "";
+        operatorJustPressed = false;
+    }
+    display.value += input;
 }
 
 function appendDecimal() {
@@ -15,17 +20,18 @@ function appendDecimal() {
 
   function appendOperator(op) {
     const value = display.value;
-  
-    if (/[+\-*/]/.test(value)) {
-      return;
+
+    if (/[+\-*/]$/.test(value)) {
+        return;
     }
-  
+
     if (value === '') {
-      return;
+        return;
     }
-  
+
     display.value += op;
-  }
+    operatorJustPressed = true;
+}
 
   function keyPress(event) {
     const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape', 'C', 'c'];
@@ -60,6 +66,7 @@ function appendDecimal() {
 
 function clearDisplay() {
     display.value = "";
+    operatorJustPressed = false;
 }
 
 function calculate() {
