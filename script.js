@@ -2,8 +2,16 @@ const display = document.getElementById('display')
 
 function appendToDisplay(input) {
     display.value += input
-    console.log(input)
 }
+
+function appendDecimal() {
+    const value = display.value;
+    const parts = value.split(/[\+\-\*\/]/);
+    const lastPart = parts[parts.length - 1];
+    if (!lastPart.includes('.')) {
+      display.value += '.';
+    }
+  }
 
 function keyPress(event) {
     const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape', 'C', 'c'];
