@@ -1,4 +1,7 @@
 const display = document.getElementById('display')
+
+let firstOperand = null;
+let operator = null;
 let operatorJustPressed = false;
 
 function appendToDisplay(input) {
@@ -16,9 +19,9 @@ function appendDecimal() {
     if (!lastPart.includes('.')) {
       display.value += '.';
     }
-  }
+}
 
-  function appendOperator(op) {
+function appendOperator(op) {
     const value = display.value;
 
     if (/[+\-*/]$/.test(value)) {
@@ -29,11 +32,13 @@ function appendDecimal() {
         return;
     }
 
-    display.value += op;
+    firstOperand = Number(value);
+
+    operator = op;
     operatorJustPressed = true;
 }
 
-  function keyPress(event) {
+function keyPress(event) {
     const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape', 'C', 'c'];
     
     if (event.key === "Escape" || event.key === "C" || event.key === "c") {
@@ -70,28 +75,27 @@ function clearDisplay() {
 }
 
 function calculate() {
-    const value = display.value;
+    let a = firstOperand
+    let b = display.value
 
-    if (value.includes("+")) {
-        const [a, b] = value.split("+").map(Number);
+    if (operator === "+") {
         return add(a, b);
-    } else if (value.includes("-")) {
-        const [a, b] = value.split("-").map(Number);
+    } else if (operator === "-") {
         return subtract(a, b);
-    } else if (value.includes("*")) {
-        const [a, b] = value.split("*").map(Number);
+    } else if (operator === "*") {
         return multiply(a, b);
-    } else if (value.includes("/" && "0")) {
-        return "Nuh uh uh no 0"
-    } else if (value.includes("/")) {
-        const [a, b] = value.split("/").map(Number);
+    } else if (operator === "/") {
+        if (b === 0) {
+            return "Nuh uh uh no 0";
+        }
         return divide(a, b);
     }
+
     return "Unsupported operation";
-};
+}
 
 const add = function(a, b) {
-	return (a + b)
+	return a + Number(b)
 };
 
 const subtract = function(a, b) {
