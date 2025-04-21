@@ -6,15 +6,15 @@ function appendToDisplay(input) {
 }
 
 function keyPress(event) {
-    const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape'];
+    const allowedKeys = ['0','1','2','3','4','5','6','7','8','9','+','-','*','/','.','Escape', 'C', 'c'];
     
-    if (event.key === "Escape") {
+    if (event.key === "Escape" || event.key === "C" || event.key === "c") {
         return clearDisplay();
     } else if (allowedKeys.includes(event.key)) {
         appendToDisplay(event.key);
     } else if (event.key === 'Enter') {
         try {
-            display.value = eval(display.value);
+            display.value = calculate(display.value);
         } catch {
             display.value = "Error";
         }
